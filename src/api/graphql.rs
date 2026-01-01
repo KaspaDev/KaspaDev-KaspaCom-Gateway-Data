@@ -68,6 +68,7 @@ impl Query {
     /// 
     /// Returns the lowest listing price per token across all active orders.
     /// Can fetch for a specific ticker or all tokens.
+    #[graphql(name = "krc20FloorPrices")]
     async fn krc20_floor_prices(
         &self,
         ctx: &Context<'_>,
@@ -116,6 +117,7 @@ impl Query {
     /// 
     /// Returns the single latest completed trade across all KRC20 tokens
     /// with full order details.
+    #[graphql(name = "lastOrderSold")]
     async fn last_order_sold(
         &self,
         ctx: &Context<'_>,
@@ -138,10 +140,11 @@ impl Query {
     /// 
     /// Returns the top 5 tokens with the highest change in mint counts
     /// within the specified time interval. Useful for identifying trending tokens.
+    #[graphql(name = "hotMints")]
     async fn hot_mints(
         &self,
         ctx: &Context<'_>,
-        time_interval: Option<String>,
+        #[graphql(name = "timeInterval")] time_interval: Option<String>,
     ) -> GraphQLResult<Vec<HotMintData>> {
         let state = ctx.data::<AppState>()?;
         let time_interval = time_interval.as_deref().unwrap_or("1h");
@@ -162,6 +165,7 @@ impl Query {
     /// 
     /// Returns detailed token information including supply, holders, trading metrics,
     /// market cap, price, and metadata (logo, socials, description).
+    #[graphql(name = "tokenInfo")]
     async fn token_info(
         &self,
         ctx: &Context<'_>,
@@ -184,6 +188,7 @@ impl Query {
     /// Get token logos.
     /// 
     /// Returns logo URLs for tokens. Can fetch a specific token logo or all token logos.
+    #[graphql(name = "tokenLogos")]
     async fn token_logos(
         &self,
         ctx: &Context<'_>,
@@ -207,6 +212,7 @@ impl Query {
     /// 
     /// Returns a list of token tickers that currently have active buy or sell orders
     /// in the marketplace.
+    #[graphql(name = "openOrders")]
     async fn open_orders(
         &self,
         ctx: &Context<'_>,
@@ -228,10 +234,11 @@ impl Query {
     /// Get historical price/volume data.
     /// 
     /// Returns historical trading data for charting and analysis.
+    #[graphql(name = "historicalData")]
     async fn historical_data(
         &self,
         ctx: &Context<'_>,
-        time_frame: String,
+        #[graphql(name = "timeFrame")] time_frame: String,
         ticker: String,
     ) -> GraphQLResult<HistoricalData> {
         let state = ctx.data::<AppState>()?;
@@ -256,6 +263,7 @@ impl Query {
     /// 
     /// Returns recently minted NFTs. Can be filtered by specific collection ticker
     /// or return all recent mints.
+    #[graphql(name = "krc721Mints")]
     async fn krc721_mints(
         &self,
         ctx: &Context<'_>,
@@ -323,10 +331,11 @@ impl Query {
     /// Get NFT trade statistics.
     /// 
     /// Returns aggregated trading data for NFT collections.
+    #[graphql(name = "krc721TradeStats")]
     async fn krc721_trade_stats(
         &self,
         ctx: &Context<'_>,
-        time_frame: Option<String>,
+        #[graphql(name = "timeFrame")] time_frame: Option<String>,
         ticker: Option<String>,
     ) -> GraphQLResult<NftTradeStats> {
         let state = ctx.data::<AppState>()?;
@@ -347,10 +356,11 @@ impl Query {
     /// Get hot minting NFT collections.
     /// 
     /// Returns collections with the highest mint activity.
+    #[graphql(name = "krc721HotMints")]
     async fn krc721_hot_mints(
         &self,
         ctx: &Context<'_>,
-        time_interval: Option<String>,
+        #[graphql(name = "timeInterval")] time_interval: Option<String>,
     ) -> GraphQLResult<Vec<HotMintData>> {
         let state = ctx.data::<AppState>()?;
         let time_interval = time_interval.as_deref().unwrap_or("1h");
@@ -370,6 +380,7 @@ impl Query {
     /// Get NFT floor prices.
     /// 
     /// Returns the lowest listing price per NFT collection.
+    #[graphql(name = "krc721FloorPrices")]
     async fn krc721_floor_prices(
         &self,
         ctx: &Context<'_>,
@@ -392,6 +403,7 @@ impl Query {
     /// Get KRC721 collection information.
     /// 
     /// Returns detailed collection info including holders, supply, rarity, and metadata.
+    #[graphql(name = "krc721CollectionInfo")]
     async fn krc721_collection_info(
         &self,
         ctx: &Context<'_>,
@@ -414,11 +426,12 @@ impl Query {
     /// Get NFT metadata.
     /// 
     /// Returns metadata for a specific NFT including image, name, traits, and attributes.
+    #[graphql(name = "nftMetadata")]
     async fn nft_metadata(
         &self,
         ctx: &Context<'_>,
         ticker: String,
-        token_id: i64,
+        #[graphql(name = "tokenId")] token_id: i64,
     ) -> GraphQLResult<NftMetadataData> {
         let state = ctx.data::<AppState>()?;
         let response = state
@@ -441,6 +454,7 @@ impl Query {
     /// Get sold KNS domain orders.
     /// 
     /// Returns completed KNS domain sales within the specified time window.
+    #[graphql(name = "knsSoldOrders")]
     async fn kns_sold_orders(
         &self,
         ctx: &Context<'_>,
@@ -463,10 +477,11 @@ impl Query {
     /// Get KNS trade statistics.
     /// 
     /// Returns aggregated trading data for KNS domains.
+    #[graphql(name = "knsTradeStats")]
     async fn kns_trade_stats(
         &self,
         ctx: &Context<'_>,
-        time_frame: Option<String>,
+        #[graphql(name = "timeFrame")] time_frame: Option<String>,
         asset: Option<String>,
     ) -> GraphQLResult<KnsTradeStats> {
         let state = ctx.data::<AppState>()?;
@@ -487,6 +502,7 @@ impl Query {
     /// Get listed KNS domains.
     /// 
     /// Returns currently listed KNS domains for sale.
+    #[graphql(name = "knsListedOrders")]
     async fn kns_listed_orders(
         &self,
         ctx: &Context<'_>,
