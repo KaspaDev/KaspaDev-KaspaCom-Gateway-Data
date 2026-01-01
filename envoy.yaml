@@ -67,4 +67,4 @@ static_resources:
                   address:
                     socket_address:
                       address: kaspadev-kaspacom-api
-                      port_value: 3010
+                      port_value: 8080
