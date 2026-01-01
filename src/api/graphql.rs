@@ -91,6 +91,7 @@ impl Query {
     /// 
     /// Returns all completed trades within the specified time window (in minutes).
     /// Includes order details, prices, and participant addresses.
+    #[graphql(name = "soldOrders")]
     async fn sold_orders(
         &self,
         ctx: &Context<'_>,
