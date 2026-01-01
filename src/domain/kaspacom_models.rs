@@ -52,7 +52,7 @@ pub struct FloorPriceEntry {
 #[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
 pub struct SoldOrder {
-    #[serde(rename = "_id")]
+    #[serde(rename = "_id", alias = "id", default)]
     pub id: String,
     pub ticker: String,
     pub amount: i64,
