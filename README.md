@@ -2,8 +2,8 @@
 
 > Production-ready REST and GraphQL API gateway for accessing Kaspa.com L1 Marketplace data (KRC20 tokens, KRC721 NFTs, KNS domains) with tiered caching, rate limiting, and comprehensive observability.
 
-[![API Status](https://img.shields.io/badge/API-Live-brightgreen)](http://localhost:8080/health)
-[![Swagger](https://img.shields.io/badge/Docs-Swagger%20UI-orange)](http://localhost:8080/swagger-ui)
+[![API Status](https://img.shields.io/badge/API-Live-brightgreen)](http://localhost:8088/health)
+[![Swagger](https://img.shields.io/badge/Docs-Swagger%20UI-orange)](http://localhost:8088/swagger-ui)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## ✨ Features
@@ -21,33 +21,43 @@
 
 ## 🚀 Quick Start
 
-### 1. Try GraphQL
-```bash
-# Open GraphiQL playground
-open http://localhost:3010/graphql
+### Run the Service
 
-# Or query via cURL
-curl -X POST http://localhost:3010/graphql \
+```bash
+# Start the API server (development mode on port 8088)
+./start.sh
+```
+
+The service will be available at:
+- **API**: http://localhost:8088
+- **GraphQL Playground**: http://localhost:8088/graphql
+- **Swagger UI**: http://localhost:8088/swagger-ui
+
+### Production Configuration
+
+For production (Cloudflare), the service runs on port **8080** by default (configured in `config.yaml`):
+
+```bash
+# Production mode (uses port 8080 from config.yaml)
+PORT=8080 cargo run --release
+```
+
+To change the production port, edit `config.yaml`:
+```yaml
+server:
+  port: 8080  # Change this to your desired production port
+```
+
+### Quick Test
+
+```bash
+# Test GraphQL API
+curl -X POST http://localhost:8088/graphql \
   -H "Content-Type: application/json" \
   -d '{"query": "query { krc20FloorPrices { ticker floorPrice } }"}'
-```
 
-### 2. Get KRC20 Token Data
-```bash
-# Get floor prices for all tokens
-curl http://localhost:8080/v1/api/kaspa/krc20/floor-prices
-
-# Get trade statistics
-curl "http://localhost:8080/v1/api/kaspa/krc20/trade-stats?timeFrame=6h&ticker=SLOW"
-```
-
-### 3. Explore the API
-Open the interactive docs at: **http://localhost:8080/swagger-ui**
-
-### 4. Check Cache Performance
-```bash
-# View cache statistics and hit rates
-curl http://localhost:3010/v1/api/kaspa/cache/stats
+# Test REST API
+curl http://localhost:8088/v1/api/kaspa/krc20/floor-prices
 ```
 
 ---
@@ -58,7 +68,7 @@ curl http://localhost:3010/v1/api/kaspa/cache/stats
 
 Flexible query interface for fetching exactly the data you need. GraphQL allows you to request only the fields you need, reducing payload size and improving performance.
 
-**GraphiQL Playground**: http://localhost:3010/graphql
+**GraphiQL Playground**: http://localhost:8088/graphql (development) | http://localhost:8080/graphql (production)
 
 **Features:**
 - ✅ 20+ queries covering KRC20, KRC721, and KNS data
@@ -219,7 +229,7 @@ query {
 
 **Using cURL:**
 ```bash
-curl -X POST http://localhost:3010/graphql \
+curl -X POST http://localhost:8088/graphql \
   -H "Content-Type: application/json" \
   -d '{
     "query": "query { krc20FloorPrices { ticker floorPrice } }"
@@ -228,7 +238,7 @@ curl -X POST http://localhost:3010/graphql \
 
 **Using Variables:**
 ```bash
-curl -X POST http://localhost:3010/graphql \
+curl -X POST http://localhost:8088/graphql \
   -H "Content-Type: application/json" \
   -d '{
     "query": "query GetPrices($ticker: String) { krc20FloorPrices(ticker: $ticker) { ticker floorPrice } }",
@@ -375,7 +385,7 @@ Request → Redis (Hot Cache) → Parquet (Warm/Cold Cache) → Kaspa.com API
 
 ```bash
 # Get cache statistics
-curl http://localhost:3010/v1/api/kaspa/cache/stats
+curl http://localhost:8088/v1/api/kaspa/cache/stats
 
 # Response includes:
 # - Total cache hits/misses
@@ -431,10 +441,10 @@ To maintain >90% cache hit rate:
 
 ```bash
 # Get detailed cache statistics
-curl http://localhost:3010/v1/api/kaspa/cache/stats | jq
+curl http://localhost:8088/v1/api/kaspa/cache/stats | jq
 
 # Monitor cache hit rate over time
-watch -n 5 'curl -s http://localhost:3010/v1/api/kaspa/cache/stats | jq ".cache_hits"'
+watch -n 5 'curl -s http://localhost:8088/v1/api/kaspa/cache/stats | jq ".cache_hits"'
 ```
 
 **Expected Cache Behavior:**
