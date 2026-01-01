@@ -42,10 +42,11 @@ impl Query {
     /// Returns aggregated trading data including total volume (USD/KAS),
     /// number of trades, and unique buyers/sellers for a specified time frame.
     /// Can be filtered by specific ticker.
+    #[graphql(name = "tradeStats")]
     async fn trade_stats(
         &self,
         ctx: &Context<'_>,
-        time_frame: Option<String>,
+        #[graphql(name = "timeFrame")] time_frame: Option<String>,
         ticker: Option<String>,
     ) -> GraphQLResult<TradeStats> {
         let state = ctx.data::<AppState>()?;
