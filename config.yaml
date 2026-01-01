@@ -14,4 +14,4 @@ rate_limit:
 allowed_repos:
   - source: "github"
     owner: "KaspaDev"
-    repo: "Kaspa-Exchange-Data"
+    repo: "KaspaDev-KaspaCom-Gateway-Data"

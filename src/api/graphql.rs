@@ -513,7 +513,6 @@ impl Query {
 pub struct FloorPrice {
     pub ticker: String,
     pub floor_price: f64,
-    pub volume: f64,
 }
 
 #[Object]
@@ -524,9 +523,6 @@ impl FloorPrice {
     async fn floor_price(&self) -> f64 {
         self.floor_price
     }
-    async fn volume(&self) -> f64 {
-        self.volume
-    }
 }
 
 impl From<crate::domain::FloorPriceEntry> for FloorPrice {
@@ -534,7 +530,6 @@ impl From<crate::domain::FloorPriceEntry> for FloorPrice {
         Self {
             ticker: entry.ticker,
             floor_price: entry.floor_price,
-            volume: 0.0,
         }
     }
 }

@@ -84,7 +84,6 @@ query {
   krc20FloorPrices {
     ticker
     floorPrice
-    volume
   }
 }
 
@@ -204,13 +203,16 @@ query {
 query {
   historicalData(timeFrame: "1h", ticker: "SLOW") {
     timeFrame
+    bucketSize
     ticker
     dataPoints {
       timestamp
       totalVolumeKas
       averagePrice
       tradeCount
+      ticker
     }
+    totalDataPoints
   }
 }
 ```
