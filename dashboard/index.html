@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaspa.com L1 Marketplace - Dashboard</title>
+    <link rel="stylesheet" href="/theme.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>📊 Kaspa<span>.com</span> L1 Marketplace</h1> <span>by Krcbot</span>
+            </div>
+            <div class="status">
+                <div class="status-dot"></div>
+                <span id="api-status">Connecting...</span>
+                <span id="cache-stats" style="margin-left: 16px; font-size: 0.85rem; color: var(--text-secondary);">
+                    <span id="cache-hits-header">--</span> cached | 
+                    <span id="cache-hit-rate">--</span> hit rate
+                </span>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="trends">
+                    <span class="tab-icon">📈</span> Trends & Stats
+                </button>
+                <button class="tab-btn" data-tab="krc20">
+                    <span class="tab-icon">🪙</span> KRC20 Tokens
+                </button>
+                <button class="tab-btn" data-tab="krc721">
+                    <span class="tab-icon">🎨</span> KRC721 NFTs
+                </button>
+                <button class="tab-btn" data-tab="kns">
+                    <span class="tab-icon">🌐</span> KNS Domains
+                </button>
+                <button class="tab-btn" data-tab="developer">
+                    <span class="tab-icon">🛠️</span> Developer
+                </button>
+                <button class="tab-btn" data-tab="system">
+                    <span class="tab-icon">⚡</span> System
+                </button>
+            </nav>
+        </div>
+
+        <!-- KRC20 Tab -->
+        <div class="tab-content" id="tab-krc20">
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="krc20-search" placeholder="Search tokens by ticker...">
+                </div>
+                <select class="filter-select" id="krc20-sort">
+                    <option value="price-desc">Price (High to Low)</option>
+                    <option value="price-asc">Price (Low to High)</option>
+                    <option value="volume-desc">Volume (High to Low)</option>
+                    <option value="ticker-asc">Ticker (A-Z)</option>
+                </select>
+                <button class="refresh-btn" onclick="loadKRC20Data()">🔄 Refresh</button>
+            </div>
+
+            <div class="stats-grid" id="krc20-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Total Tokens</div>
+                    <div class="stat-value" id="krc20-total">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">24h Volume</div>
+                    <div class="stat-value" id="krc20-volume">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Trades</div>
+                    <div class="stat-value" id="krc20-trades">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Token</div>
+                    <div class="stat-value" id="krc20-top">--</div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <span class="table-title">Floor Prices</span>
+                    <span class="table-count" id="krc20-count">Loading...</span>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Floor Price (KAS)</th>
+                                <th>Floor Price (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="krc20-tbody">
+                            <tr>
+                                <td colspan="3" class="loading">
+                                    <div class="spinner"></div> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="krc20-pagination"></div>
+            </div>
+        </div>
+
+        <!-- KRC721 Tab -->
+        <div class="tab-content" id="tab-krc721">
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="krc721-search" placeholder="Search NFT collections...">
+                </div>
+                <select class="filter-select" id="krc721-sort">
+                    <option value="floor-desc">Floor Price (High to Low)</option>
+                    <option value="floor-asc">Floor Price (Low to High)</option>
+                    <option value="ticker-asc">Collection (A-Z)</option>
+                </select>
+                <button class="refresh-btn" onclick="loadKRC721Data()">🔄 Refresh</button>
+            </div>
+
+            <div class="stats-grid" id="krc721-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Collections</div>
+                    <div class="stat-value" id="krc721-collections">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Volume</div>
+                    <div class="stat-value" id="krc721-volume">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Sales</div>
+                    <div class="stat-value" id="krc721-sales">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Hot Collection</div>
+                    <div class="stat-value" id="krc721-hot">--</div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <span class="table-title">NFT Floor Prices</span>
+                    <span class="table-count" id="krc721-count">Loading...</span>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Collection</th>
+                                <th>Floor Price (KAS)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="krc721-tbody">
+                            <tr>
+                                <td colspan="2" class="loading">
+                                    <div class="spinner"></div> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="krc721-pagination"></div>
+            </div>
+        </div>
+
+        <!-- KNS Tab -->
+        <div class="tab-content" id="tab-kns">
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="kns-search" placeholder="Search domains...">
+                </div>
+                <select class="filter-select" id="kns-sort">
+                    <option value="price-desc">Price (High to Low)</option>
+                    <option value="price-asc">Price (Low to High)</option>
+                    <option value="name-asc">Name (A-Z)</option>
+                </select>
+                <button class="refresh-btn" onclick="loadKNSData()">🔄 Refresh</button>
+            </div>
+
+            <div class="stats-grid" id="kns-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Listed Domains</div>
+                    <div class="stat-value" id="kns-listed">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Volume</div>
+                    <div class="stat-value" id="kns-volume">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Sales</div>
+                    <div class="stat-value" id="kns-sales">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Price</div>
+                    <div class="stat-value" id="kns-avg">--</div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <span class="table-title">Listed Domains</span>
+                    <span class="table-count" id="kns-count">Loading...</span>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Price (KAS)</th>
+                                <th>Seller</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kns-tbody">
+                            <tr>
+                                <td colspan="3" class="loading">
+                                    <div class="spinner"></div> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="kns-pagination"></div>
+            </div>
+        </div>
+
+        <!-- Trends Tab -->
+        <div class="tab-content active" id="tab-trends">
+            <div class="filter-bar">
+                <select class="filter-select" id="trends-timeframe">
+                    <option value="6h">Last 6 Hours</option>
+                    <option value="24h" selected>Last 24 Hours</option>
+                    <option value="7d">Last 7 Days</option>
+                </select>
+                <button class="refresh-btn" onclick="loadTrendsData()">🔄 Refresh</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">KRC20 Trades</div>
+                    <div class="stat-value" id="trends-krc20-trades">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">KRC20 Volume (KAS)</div>
+                    <div class="stat-value" id="trends-krc20-volume">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">NFT Trades</div>
+                    <div class="stat-value" id="trends-nft-trades">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">NFT Volume (KAS)</div>
+                    <div class="stat-value" id="trends-nft-volume">--</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span class="table-title">🔥 Hot Minting Tokens</span>
+                    <div class="range-buttons">
+                        <button class="range-btn active" data-interval="1h">1H</button>
+                        <button class="range-btn" data-interval="6h">6H</button>
+                        <button class="range-btn" data-interval="24h">24H</button>
+                    </div>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Mints</th>
+                                <th>Minted %</th>
+                                <th>Holders</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hot-mints-tbody">
+                            <tr>
+                                <td colspan="4" class="loading">
+                                    <div class="spinner"></div> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <span class="table-title">Recent Trades by Token</span>
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Trades</th>
+                                <th>OrganicL1 Volume (KAS)</th>
+                                <th>Organic L1 Volume (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trades-tbody">
+                            <tr>
+                                <td colspan="4" class="loading">
+                                    <div class="spinner"></div> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developer Tab -->
+        <div class="tab-content" id="tab-developer">
+            <div class="stats-grid">
+                <div class="stat-card" style="grid-column: span 2">
+                    <div class="stat-label">API Documentation</div>
+                    <div class="stat-value" style="font-size:1rem">Interactive Swagger UI with all endpoints</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">OpenAPI Spec</div>
+                    <div class="stat-value" style="font-size:1rem">Download JSON specification</div>
+                </div>
+            </div>
+
+            <div class="data-table">
+                <div class="table-header">
+                    <span class="table-title">🛠️ Developer Resources</span>
+                </div>
+                <div style="padding:20px">
+                    <div class="detail-links" style="margin-bottom:24px">
+                        <a href="/swagger-ui" id="link-docs" target="_blank" class="detail-link"
+                            style="font-size:1rem;padding:12px 24px">📖
+                            Swagger API Docs</a>
+                        <a href="/v1/openapi.json" id="link-openapi" target="_blank" class="detail-link"
+                            style="font-size:1rem;padding:12px 24px" download>📥 Download OpenAPI Spec</a>
+                        <a href="https://github.com/KaspaDev/KaspaDev-KaspaCom-Gateway-Data" target="_blank"
+                            class="detail-link" style="font-size:1rem;padding:12px 24px">🐙 GitHub Repository</a>
+                    </div>
+
+                    <h3
+                        style="color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin:24px 0 12px">
+                        Available API Endpoints</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="ticker-badge">KRC20</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/floor-price</td>
+                                <td>Get floor prices for all KRC20 tokens</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge">KRC20</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/trade-stats</td>
+                                <td>Trade statistics with volume data</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge">KRC20</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/token-info/{ticker}
+                                </td>
+                                <td>Detailed token metadata</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge">KRC20</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/hot-mints</td>
+                                <td>Currently hot minting tokens</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge" style="background:var(--krc721-color)">KRC721</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/krc721/floor-price</td>
+                                <td>NFT collection floor prices</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge" style="background:var(--krc721-color)">KRC721</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/krc721/trade-stats</td>
+                                <td>NFT trading statistics</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge" style="background:var(--kns-color)">KNS</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/kns/listed-orders</td>
+                                <td>Currently listed domain names</td>
+                            </tr>
+                            <tr>
+                                <td><span class="ticker-badge" style="background:var(--kns-color)">KNS</span></td>
+                                <td style="font-family:monospace;font-size:0.8rem">/v1/api/kaspa/kns/trade-stats</td>
+                                <td>Domain trading statistics</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3
+                        style="color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin:32px 0 12px">
+                        Quick Start</h3>
+                    <div
+                        style="background:var(--bg-secondary);border-radius:8px;padding:16px;font-family:monospace;font-size:0.85rem;overflow-x:auto">
+                        <div style="color:var(--text-secondary);margin-bottom:8px"># Fetch KRC20 floor prices</div>
+                        <div style="color:var(--positive)">curl <span id="api-base-url"></span>/v1/api/kaspa/floor-price
+                        </div>
+                        <br>
+                        <div style="color:var(--text-secondary);margin-bottom:8px"># Get token info for KRCBOT</div>
+                        <div style="color:var(--positive)">curl <span
+                                class="api-base-url-display"></span>/v1/api/kaspa/token-info/KRCBOT</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Tab -->
+        <div class="tab-content" id="tab-system">
+            <div class="filter-bar">
+                <h2 style="margin-right: auto;">System Status & Cache Intelligence</h2>
+                <button class="refresh-btn" onclick="loadSystemData()">🔄 Refresh System</button>
+            </div>
+
+            <div class="detail-section">
+                <h3>API Health & Limits</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">System Status</div>
+                        <div class="stat-value" id="sys-status">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Cache Storage</div>
+                        <div class="stat-value" id="sys-cache-size">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Cached Files</div>
+                        <div class="stat-value" id="sys-cache-files">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Requests Served from Cache</div>
+                        <div class="stat-value" id="sys-cache-hits">--</div>
+                        <div class="stat-change" style="color:var(--accent);font-size:0.75rem;margin-top:4px">API offload counter</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Cache Efficiency Breakdown</h3>
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Entries</th>
+                                <th>Size</th>
+                                <th>Requests</th>
+                                <th>Hits</th>
+                                <th>Misses</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="system-tbody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Overlay for Tokens/NFTs/Domains -->
+    <div class="detail-overlay" id="detail-overlay">
+        <div class="detail-container">
+            <div class="detail-header">
+                <div class="detail-logo" id="detail-logo">🪙</div>
+                <div class="detail-title">
+                    <h2 id="detail-name">Loading...</h2>
+                    <div class="detail-subtitle" id="detail-subtitle">KRC20 Token</div>
+                </div>
+                <button class="close-btn" onclick="closeDetail()">✕ Close</button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-stats" id="detail-stats">
+                    <div class="detail-stat">
+                        <div class="detail-stat-label">Loading...</div>
+                        <div class="detail-stat-value">--</div>
+                    </div>
+                </div>
+
+                <div class="detail-section" id="detail-description-section">
+                    <h3>Description</h3>
+                    <p class="detail-description" id="detail-description">Loading token information...</p>
+                </div>
+
+                <div class="detail-section" id="detail-links-section">
+                    <h3>Links</h3>
+                    <div class="detail-links" id="detail-links"></div>
+                </div>
+
+                <div class="detail-section" id="detail-metadata-section">
+                    <h3>Metadata</h3>
+                    <div class="data-table" style="margin-top:12px">
+                        <table>
+                            <tbody id="detail-metadata"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="detail-section" id="detail-nfts-section" style="display:none">
+                    <h3>NFTs in Collection</h3>
+                    <div class="nft-grid" id="detail-nfts"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/krcbot-dashboard.js"></script>
+</body>
+
+</html>

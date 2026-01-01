@@ -1,0 +1,224 @@
+# Secrets and Credentials
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+credentials/
+*.secret
+*.token
+*_token
+*_secret
+*_key
+*_password
+*_passwd
+
+# GitHub Tokens
+GITHUB_TOKEN
+ghp_*
+github_token
+github_*.txt
+
+# API Keys
+api_key*
+*_api_key
+*_apikey
+
+# Configuration files with secrets
+config.local.*
+*.local.json
+*.local.yaml
+*.local.yml
+secrets.json
+secrets.yaml
+secrets.yml
+
+# Rust
+target/
+**/*.rs.bk
+*.pdb
+
+# Rust build artifacts
+Cargo.lock
+*.exe
+*.dll
+*.so
+*.dylib
+*.rlib
+*.a
+*.lib
+
+# Rust test artifacts
+*.gcda
+*.gcno
+*.gcov
+
+# Rust benchmarks
+cargo-bench.toml
+
+# Rust coverage
+tarpaulin-report.html
+cobertura.xml
+lcov.info
+*.profraw
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+.settings
+*.code-workspace
+
+# Logs
+*.log
+logs/
+*.log.*
+log/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.orig
+*.rej
+*~
+.#*
+#*
+=/
+=
+reading
+trans
+transferring
+
+# Data cache and generated files
+data/cache/
+data/icons/
+
+# Parquet files (if they're generated/cached)
+*.parquet
+*.parquet.snappy
+
+# Test files (optional - remove if you want to keep test data)
+test/test-*.json
+test/*-test.json
+tests/test-*.json
+tests/*-test.json
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# Docker volumes (but keep .gitkeep)
+docker-volumes/*
+!docker-volumes/.gitkeep
+!docker-volumes/*/.gitkeep
+
+# Docker compose override files
+docker-compose.override.yml
+docker-compose.*.local.yml
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Documentation build outputs
+docs/_build/
+docs/.doctrees/
+*.pdf
+
+# Benchmark results
+criterion/
+
+# Flamegraph output
+flamegraph.svg
+perf.data
+perf.data.old
+
+# Profiling data
+*.profdata
+
+# Local development files
+.local/
+*.local
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vs/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.save

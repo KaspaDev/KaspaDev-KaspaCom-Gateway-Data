@@ -1,0 +1,2153 @@
+{
+	"info": {
+		"_postman_id": "90505303-42ef-4bb4-bb7e-269d4072c98f",
+		"name": "KaspaCom L1 Marketplace API",
+		"description": "API for accessing KRC20 tokens, KRC721 NFTs, KNS domains, trading data, and marketplace statistics on the Kaspa blockchain",
+		"author": "KRCBOT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "548155"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "trade-stats",
+					"item": [
+						{
+							"name": "Get trade statistics for KRC20 tokens",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/trade-stats?timeFrame=6h&ticker=string",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"trade-stats"
+									],
+									"query": [
+										{
+											"key": "timeFrame",
+											"value": "6h",
+											"description": "Time frame for statistics"
+										},
+										{
+											"key": "ticker",
+											"value": "SLOW",
+											"description": "Filter by specific token ticker (e.g., SLOW, TBDAI)"
+										}
+									]
+								},
+								"description": "Returns aggregated trading data including total volume (USD/KAS), number of trades, and unique buyers/sellers for a specified time frame. Can be filtered by specific ticker."
+							},
+							"response": [
+								{
+									"name": "Trade statistics data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/trade-stats?timeFrame=6h&ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"trade-stats"
+											],
+											"query": [
+												{
+													"key": "timeFrame",
+													"value": "6h",
+													"description": "Time frame for statistics"
+												},
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker (e.g., SLOW)"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"totalTradesKaspiano\": 500,\n  \"totalVolumeKasKaspiano\": \"5000.50\",\n  \"totalVolumeUsdKaspiano\": \"150015.00\",\n  \"tokens\": [\n    {\n      \"ticker\": \"SLOW\",\n      \"totalTrades\": 150,\n      \"totalVolumeKAS\": \"1250.50\",\n      \"totalVolumeUsd\": \"37515.00\"\n    },\n    {\n      \"ticker\": \"SLOW\",\n      \"totalTrades\": 150,\n      \"totalVolumeKAS\": \"1250.50\",\n      \"totalVolumeUsd\": \"37515.00\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Bad request - timeFrame is required",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/trade-stats?timeFrame=6h&ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"trade-stats"
+											],
+											"query": [
+												{
+													"key": "timeFrame",
+													"value": "6h",
+													"description": "Time frame for statistics"
+												},
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker (e.g., SLOW)"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "floor-price",
+					"item": [
+						{
+							"name": "Get floor price for KRC20 tokens",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/floor-price?ticker=string",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"floor-price"
+									],
+									"query": [
+										{
+											"key": "ticker",
+											"value": "SLOW",
+											"description": "Filter by specific token ticker (returns all tokens if omitted)"
+										}
+									]
+								},
+								"description": "Returns the lowest listing price per token across all active orders. Can fetch for a specific ticker or all tokens."
+							},
+							"response": [
+								{
+									"name": "Floor price data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/floor-price?ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"floor-price"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker (returns all tokens if omitted)"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"ticker\": \"SLOW\",\n    \"floor_price\": 0.0005\n  },\n  {\n    \"ticker\": \"SLOW\",\n    \"floor_price\": 0.0005\n  }\n]"
+								},
+								{
+									"name": "Bad request - unable to process request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/floor-price?ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"floor-price"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker (returns all tokens if omitted)"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "sold-orders",
+					"item": [
+						{
+							"name": "Get recently sold/fulfilled orders for KRC20 tokens",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/sold-orders?ticker=string&minutes=72.56003088035312",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"sold-orders"
+									],
+									"query": [
+										{
+											"key": "ticker",
+											"value": "SLOW",
+											"description": "Filter by specific token ticker"
+										},
+										{
+											"key": "minutes",
+											"value": "72.56003088035312",
+											"description": "Time window in minutes (default: 1)"
+										}
+									]
+								},
+								"description": "Returns all completed trades within the specified time window (in minutes). Includes order details, prices, and participant addresses."
+							},
+							"response": [
+								{
+									"name": "List of sold orders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/sold-orders?ticker=string&minutes=72.56003088035312",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"sold-orders"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker"
+												},
+												{
+													"key": "minutes",
+													"value": "72.56003088035312",
+													"description": "Time window in minutes (default: 1)"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"ticker\": \"SLOW\",\n    \"amount\": 1000000,\n    \"pricePerToken\": 0.0006,\n    \"totalPrice\": 600,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"ticker\": \"SLOW\",\n    \"amount\": 1000000,\n    \"pricePerToken\": 0.0006,\n    \"totalPrice\": 600,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  }\n]"
+								},
+								{
+									"name": "Unable to retrieve completed orders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/sold-orders?ticker=string&minutes=72.56003088035312",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"sold-orders"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker"
+												},
+												{
+													"key": "minutes",
+													"value": "72.56003088035312",
+													"description": "Time window in minutes (default: 1)"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "last-order-sold",
+					"item": [
+						{
+							"name": "Get the most recent sold order",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/last-order-sold",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"last-order-sold"
+									]
+								},
+								"description": "Returns the single latest completed trade across all KRC20 tokens with full order details."
+							},
+							"response": [
+								{
+									"name": "Most recent sold order",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/last-order-sold",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"last-order-sold"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"_id\": \"507f1f77bcf86cd799439011\",\n  \"ticker\": \"SLOW\",\n  \"amount\": 1000000,\n  \"pricePerToken\": 0.0006,\n  \"totalPrice\": 600,\n  \"sellerAddress\": \"kaspa:qz...\",\n  \"createdAt\": 1702815600000,\n  \"status\": \"fulfilled\",\n  \"buyerAddress\": \"kaspa:qp...\",\n  \"fulfillmentTimestamp\": 1702820000000\n}"
+								},
+								{
+									"name": "Unable to retrieve the completed order",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/last-order-sold",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"last-order-sold"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "hot-mints",
+					"item": [
+						{
+							"name": "Get tokens with fastest minting activity",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/hot-mints?timeInterval=1h",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"hot-mints"
+									],
+									"query": [
+										{
+											"key": "timeInterval",
+											"value": "1h",
+											"description": "Time interval for measuring mint changes"
+										}
+									]
+								},
+								"description": "Returns the top 5 tokens with the highest change in mint counts within the specified time interval. Useful for identifying trending tokens."
+							},
+							"response": [
+								{
+									"name": "List of hot minting tokens",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/hot-mints?timeInterval=1h",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"hot-mints"
+											],
+											"query": [
+												{
+													"key": "timeInterval",
+													"value": "1h",
+													"description": "Time interval for measuring mint changes"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"ticker\": \"NEWTOKEN\",\n    \"changeTotalMints\": 5000,\n    \"totalMintPercentage\": 85.5,\n    \"totalHolders\": 1250\n  },\n  {\n    \"ticker\": \"NEWTOKEN\",\n    \"changeTotalMints\": 5000,\n    \"totalMintPercentage\": 85.5,\n    \"totalHolders\": 1250\n  }\n]"
+								},
+								{
+									"name": "Unable to process hot mints request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/hot-mints?timeInterval=1h",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"hot-mints"
+											],
+											"query": [
+												{
+													"key": "timeInterval",
+													"value": "1h",
+													"description": "Time interval for measuring mint changes"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "token-info",
+					"item": [
+						{
+							"name": "{ticker}",
+							"item": [
+								{
+									"name": "Get comprehensive information about a specific KRC20 token",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/token-info/:ticker",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"token-info",
+												":ticker"
+											],
+											"variable": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Token ticker symbol (e.g., SLOW)"
+												}
+											]
+										},
+										"description": "Returns detailed token information including supply, holders, trading metrics, market cap, price, and metadata (logo, socials, description)."
+									},
+									"response": [
+										{
+											"name": "Detailed token information",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/token-info/:ticker",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"token-info",
+														":ticker"
+													],
+													"variable": [
+														{
+															"key": "ticker",
+															"value": "SLOW",
+															"description": "Token ticker symbol (e.g., SLOW)"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"ticker\": \"SLOW\",\n  \"creationDate\": \"2024-01-15T08:00:00.000Z\",\n  \"totalSupply\": 21000000000,\n  \"totalMintTimes\": 12500,\n  \"totalMinted\": 18900000000,\n  \"totalMintedPercent\": 90,\n  \"totalHolders\": 3500,\n  \"preMintedSupply\": 2100000000,\n  \"mintLimit\": 1000000,\n  \"devWallet\": \"kaspa:qz...\",\n  \"totalTrades\": 8500,\n  \"state\": \"active\",\n  \"price\": 0.00015,\n  \"marketCap\": 3150000,\n  \"volumeUsd\": 500000,\n  \"volumeKas\": 16666.67,\n  \"rank\": 15,\n  \"topHolders\": {},\n  \"metadata\": {\n    \"description\": \"A revolutionary DeFi token\",\n    \"logoUrl\": \"https://...\",\n    \"bannerUrl\": \"https://...\",\n    \"contacts\": [\n      \"support@token.com\"\n    ],\n    \"socials\": {\n      \"website\": \"https://token.com\",\n      \"discord\": \"https://discord.gg/...\",\n      \"telegram\": \"https://t.me/...\",\n      \"x\": \"https://x.com/...\",\n      \"github\": \"https://github.com/...\",\n      \"medium\": \"https://medium.com/...\",\n      \"reddit\": \"https://reddit.com/r/...\",\n      \"whitepaper\": \"https://...\",\n      \"audit\": \"https://...\",\n      \"contract\": \"https://...\"\n    }\n  }\n}"
+										},
+										{
+											"name": "Token not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/token-info/:ticker",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"token-info",
+														":ticker"
+													],
+													"variable": [
+														{
+															"key": "ticker",
+															"value": "SLOW",
+															"description": "Token ticker symbol (e.g., SLOW)"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "tokens-logos",
+					"item": [
+						{
+							"name": "Get token logos for KRC20 tokens",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/tokens-logos?ticker=string",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"tokens-logos"
+									],
+									"query": [
+										{
+											"key": "ticker",
+											"value": "SLOW",
+											"description": "Filter by specific token ticker (returns all if omitted)"
+										}
+									]
+								},
+								"description": "Returns logo URLs for tokens. Can fetch a specific token logo or all token logos."
+							},
+							"response": [
+								{
+									"name": "List of token logos",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/tokens-logos?ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"tokens-logos"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker (returns all if omitted)"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"ticker\": \"SLOW\",\n    \"logo\": \"https://...\"\n  },\n  {\n    \"ticker\": \"SLOW\",\n    \"logo\": \"https://...\"\n  }\n]"
+								},
+								{
+									"name": "Failed to retrieve token logos",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/tokens-logos?ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"tokens-logos"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Filter by specific token ticker (returns all if omitted)"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "open-orders",
+					"item": [
+						{
+							"name": "Get tickers with active open orders",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/open-orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"open-orders"
+									]
+								},
+								"description": "Returns a list of token tickers that currently have active buy or sell orders in the marketplace."
+							},
+							"response": [
+								{
+									"name": "List of tickers with open orders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/open-orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"open-orders"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"tickers\": [\n    \"SLOW\",\n    \"PEPE\",\n    \"SHIB\"\n  ]\n}"
+								},
+								{
+									"name": "Unable to retrieve open orders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/open-orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"open-orders"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "krc721",
+					"item": [
+						{
+							"name": "mint",
+							"item": [
+								{
+									"name": "Get recent NFT mints for KRC721 collections",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/mint?ticker=BITCOIN",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"mint"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "BITCOIN",
+													"description": "Filter by NFT collection ticker"
+												}
+											]
+										},
+										"description": "Returns recently minted NFTs. Can be filtered by specific collection ticker or return all recent mints."
+									},
+									"response": [
+										{
+											"name": "List of recent NFT mints",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/mint?ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"mint"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"ticker\": \"KASMONKEYS\",\n    \"tokenId\": \"1234\",\n    \"minterAddress\": \"kaspa:qz...\",\n    \"timestamp\": 1702815600000,\n    \"metadataUri\": \"ipfs://...\"\n  },\n  {\n    \"ticker\": \"KASMONKEYS\",\n    \"tokenId\": \"1234\",\n    \"minterAddress\": \"kaspa:qz...\",\n    \"timestamp\": 1702815600000,\n    \"metadataUri\": \"ipfs://...\"\n  }\n]"
+										},
+										{
+											"name": "Unable to retrieve recent mints",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/mint?ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"mint"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "sold-orders",
+							"item": [
+								{
+									"name": "Get recently sold NFT orders",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/sold-orders?ticker=BITCOIN&minutes=72.56003088035312",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"sold-orders"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "BITCOIN",
+													"description": "Filter by NFT collection ticker"
+												},
+												{
+													"key": "minutes",
+													"value": "72.56003088035312",
+													"description": "Time window in minutes (default: 1)"
+												}
+											]
+										},
+										"description": "Returns all completed NFT trades within the specified time window (in minutes). Includes order details, prices, and participant addresses."
+									},
+									"response": [
+										{
+											"name": "List of sold NFT orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/sold-orders?ticker=BITCOIN&minutes=72.56003088035312",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"sold-orders"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker"
+														},
+														{
+															"key": "minutes",
+															"value": "72.56003088035312",
+															"description": "Time window in minutes (default: 1)"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"ticker\": \"KASMONKEYS\",\n    \"tokenId\": \"1234\",\n    \"price\": 100,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"ticker\": \"KASMONKEYS\",\n    \"tokenId\": \"1234\",\n    \"price\": 100,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  }\n]"
+										},
+										{
+											"name": "Unable to retrieve completed orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/sold-orders?ticker=BITCOIN&minutes=72.56003088035312",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"sold-orders"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker"
+														},
+														{
+															"key": "minutes",
+															"value": "72.56003088035312",
+															"description": "Time window in minutes (default: 1)"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "listed-orders",
+							"item": [
+								{
+									"name": "Get currently listed NFT orders",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/listed-orders?ticker=BITCOIN",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"listed-orders"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "BITCOIN",
+													"description": "Filter by NFT collection ticker"
+												}
+											]
+										},
+										"description": "Returns all active NFT listings available for purchase. Can be filtered by collection ticker."
+									},
+									"response": [
+										{
+											"name": "List of listed NFT orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/listed-orders?ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"listed-orders"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"ticker\": \"KASMONKEYS\",\n    \"tokenId\": \"1234\",\n    \"price\": 100,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"ticker\": \"KASMONKEYS\",\n    \"tokenId\": \"1234\",\n    \"price\": 100,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  }\n]"
+										},
+										{
+											"name": "Unable to retrieve listed orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/listed-orders?ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"listed-orders"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "trade-stats",
+							"item": [
+								{
+									"name": "Get trade statistics for KRC721 NFT collections",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/trade-stats?timeFrame=6h&ticker=BITCOIN",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"trade-stats"
+											],
+											"query": [
+												{
+													"key": "timeFrame",
+													"value": "6h",
+													"description": "Time frame for statistics"
+												},
+												{
+													"key": "ticker",
+													"value": "BITCOIN",
+													"description": "Filter by specific NFT collection ticker"
+												}
+											]
+										},
+										"description": "Returns aggregated NFT trading data including total volume (USD/KAS), number of trades, and unique participants for a specified time frame."
+									},
+									"response": [
+										{
+											"name": "NFT trade statistics",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/trade-stats?timeFrame=6h&ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"trade-stats"
+													],
+													"query": [
+														{
+															"key": "timeFrame",
+															"value": "6h",
+															"description": "Time frame for statistics"
+														},
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by specific NFT collection ticker"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"totalTradesKaspiano\": 250,\n  \"totalVolumeKasKaspiano\": \"3500.75\",\n  \"totalVolumeUsdKaspiano\": \"105022.50\",\n  \"collections\": [\n    {\n      \"ticker\": \"KASMONKEYS\",\n      \"totalTrades\": 75,\n      \"totalVolumeKAS\": \"850.25\",\n      \"totalVolumeUsd\": \"25507.50\"\n    },\n    {\n      \"ticker\": \"KASMONKEYS\",\n      \"totalTrades\": 75,\n      \"totalVolumeKAS\": \"850.25\",\n      \"totalVolumeUsd\": \"25507.50\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Unable to process trade statistics request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/trade-stats?timeFrame=6h&ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"trade-stats"
+													],
+													"query": [
+														{
+															"key": "timeFrame",
+															"value": "6h",
+															"description": "Time frame for statistics"
+														},
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by specific NFT collection ticker"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "hot-mints",
+							"item": [
+								{
+									"name": "Get NFT collections with fastest minting activity",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/hot-mints?timeInterval=1h",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"hot-mints"
+											],
+											"query": [
+												{
+													"key": "timeInterval",
+													"value": "1h",
+													"description": "Time interval for measuring mint changes"
+												}
+											]
+										},
+										"description": "Returns the top 5 NFT collections with the highest change in mint counts within the specified time interval. Useful for identifying trending collections."
+									},
+									"response": [
+										{
+											"name": "List of hot minting NFT collections",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/hot-mints?timeInterval=1h",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"hot-mints"
+													],
+													"query": [
+														{
+															"key": "timeInterval",
+															"value": "1h",
+															"description": "Time interval for measuring mint changes"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"ticker\": \"NEWTOKEN\",\n    \"changeTotalMints\": 5000,\n    \"totalMintPercentage\": 85.5,\n    \"totalHolders\": 1250\n  },\n  {\n    \"ticker\": \"NEWTOKEN\",\n    \"changeTotalMints\": 5000,\n    \"totalMintPercentage\": 85.5,\n    \"totalHolders\": 1250\n  }\n]"
+										},
+										{
+											"name": "Unable to process hot mints request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/hot-mints?timeInterval=1h",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"hot-mints"
+													],
+													"query": [
+														{
+															"key": "timeInterval",
+															"value": "1h",
+															"description": "Time interval for measuring mint changes"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "floor-price",
+							"item": [
+								{
+									"name": "Get floor price for KRC721 NFT collections",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/floor-price?ticker=BITCOIN",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"floor-price"
+											],
+											"query": [
+												{
+													"key": "ticker",
+													"value": "BITCOIN",
+													"description": "Filter by NFT collection ticker (returns all if omitted)"
+												}
+											]
+										},
+										"description": "Returns the lowest listing price for NFTs in a collection. Can fetch for a specific collection or all collections."
+									},
+									"response": [
+										{
+											"name": "NFT floor price data",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/floor-price?ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"floor-price"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker (returns all if omitted)"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"ticker\": \"SLOW\",\n    \"floor_price\": 0.0005\n  },\n  {\n    \"ticker\": \"SLOW\",\n    \"floor_price\": 0.0005\n  }\n]"
+										},
+										{
+											"name": "Unable to process floor price request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/floor-price?ticker=BITCOIN",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"floor-price"
+													],
+													"query": [
+														{
+															"key": "ticker",
+															"value": "BITCOIN",
+															"description": "Filter by NFT collection ticker (returns all if omitted)"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "tokens",
+							"item": [
+								{
+									"name": "Get filtered NFT tokens with pagination",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/krc721/tokens",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"krc721",
+												"tokens"
+											]
+										},
+										"description": "Returns NFTs matching the provided filter criteria including collection, owner, listing status, price range, and other attributes. Supports pagination and sorting."
+									},
+									"response": [
+										{
+											"name": "Filtered NFT tokens with total count",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/tokens",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"tokens"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"items\": [\n    {\n      \"tokenId\": \"1234\",\n      \"ticker\": \"KASMONKEYS\",\n      \"owner\": \"kaspa:qz...\",\n      \"isListed\": false,\n      \"name\": \"Kasmonkey #1234\",\n      \"description\": \"string\",\n      \"image\": \"string\",\n      \"price\": 100,\n      \"traits\": {\n        \"Background\": {\n          \"value\": \"Blue\",\n          \"rarity\": 12.5\n        },\n        \"Eyes\": {\n          \"value\": \"Laser\",\n          \"rarity\": 3.2\n        }\n      },\n      \"rank\": 42\n    },\n    {\n      \"tokenId\": \"1234\",\n      \"ticker\": \"KASMONKEYS\",\n      \"owner\": \"kaspa:qz...\",\n      \"isListed\": false,\n      \"name\": \"Kasmonkey #1234\",\n      \"description\": \"string\",\n      \"image\": \"string\",\n      \"price\": 100,\n      \"traits\": {\n        \"Background\": {\n          \"value\": \"Blue\",\n          \"rarity\": 12.5\n        },\n        \"Eyes\": {\n          \"value\": \"Laser\",\n          \"rarity\": 3.2\n        }\n      },\n      \"rank\": 42\n    }\n  ],\n  \"totalCount\": 150\n}"
+										},
+										{
+											"name": "Bad request - invalid filter parameters",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/krc721/tokens",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"krc721",
+														"tokens"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "kns",
+					"item": [
+						{
+							"name": "sold-orders",
+							"item": [
+								{
+									"name": "Get recently sold KNS domain orders",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/kns/sold-orders?minutes=72.56003088035312",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"kns",
+												"sold-orders"
+											],
+											"query": [
+												{
+													"key": "minutes",
+													"value": "72.56003088035312",
+													"description": "Time window in minutes (default: 1)"
+												}
+											]
+										},
+										"description": "Returns all completed KNS (Kaspa Name Service) domain trades within the specified time window (in minutes)."
+									},
+									"response": [
+										{
+											"name": "List of sold KNS domain orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/kns/sold-orders?minutes=72.56003088035312",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"kns",
+														"sold-orders"
+													],
+													"query": [
+														{
+															"key": "minutes",
+															"value": "72.56003088035312",
+															"description": "Time window in minutes (default: 1)"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"assetId\": \"mywallet.kas\",\n    \"price\": 500,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"assetId\": \"mywallet.kas\",\n    \"price\": 500,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  }\n]"
+										},
+										{
+											"name": "Unable to retrieve completed orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/kns/sold-orders?minutes=72.56003088035312",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"kns",
+														"sold-orders"
+													],
+													"query": [
+														{
+															"key": "minutes",
+															"value": "72.56003088035312",
+															"description": "Time window in minutes (default: 1)"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "trade-stats",
+							"item": [
+								{
+									"name": "Get trade statistics for KNS domains",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/kns/trade-stats?timeFrame=6h&asset=KRCBOT.KAS",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"kns",
+												"trade-stats"
+											],
+											"query": [
+												{
+													"key": "timeFrame",
+													"value": "6h",
+													"description": "Time frame for statistics"
+												},
+												{
+													"key": "asset",
+													"value": "KRCBOT.KAS",
+													"description": "Filter by specific domain name"
+												}
+											]
+										},
+										"description": "Returns aggregated KNS domain trading data including total volume (USD/KAS), number of trades, and unique participants for a specified time frame."
+									},
+									"response": [
+										{
+											"name": "KNS trade statistics",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/kns/trade-stats?timeFrame=6h&asset=KRCBOT.KAS",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"kns",
+														"trade-stats"
+													],
+													"query": [
+														{
+															"key": "timeFrame",
+															"value": "6h",
+															"description": "Time frame for statistics"
+														},
+														{
+															"key": "asset",
+															"value": "KRCBOT.KAS",
+															"description": "Filter by specific domain name"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"totalTradesKaspiano\": 125,\n  \"totalVolumeKasKaspiano\": \"15000.50\",\n  \"totalVolumeUsdKaspiano\": \"450015.00\"\n}"
+										},
+										{
+											"name": "Timeframe is required",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/kns/trade-stats?timeFrame=6h&asset=KRCBOT.KAS",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"kns",
+														"trade-stats"
+													],
+													"query": [
+														{
+															"key": "timeFrame",
+															"value": "6h",
+															"description": "Time frame for statistics"
+														},
+														{
+															"key": "asset",
+															"value": "KRCBOT.KAS",
+															"description": "Filter by specific domain name"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "listed-orders",
+							"item": [
+								{
+									"name": "Get currently listed KNS domain orders",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/kns/listed-orders",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"kns",
+												"listed-orders"
+											]
+										},
+										"description": "Returns all active KNS (Kaspa Name Service) domain listings available for purchase."
+									},
+									"response": [
+										{
+											"name": "List of listed KNS domain orders",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/kns/listed-orders",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"kns",
+														"listed-orders"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"assetId\": \"mywallet.kas\",\n    \"price\": 500,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  },\n  {\n    \"_id\": \"507f1f77bcf86cd799439011\",\n    \"assetId\": \"mywallet.kas\",\n    \"price\": 500,\n    \"sellerAddress\": \"kaspa:qz...\",\n    \"createdAt\": 1702815600000,\n    \"status\": \"fulfilled\",\n    \"buyerAddress\": \"kaspa:qp...\",\n    \"fulfillmentTimestamp\": 1702820000000\n  }\n]"
+										},
+										{
+											"name": "Unable to retrieve listings for KNS",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/kns/listed-orders",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"kns",
+														"listed-orders"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "historical-data",
+					"item": [
+						{
+							"name": "Get historical price and volume data for KRC20 tokens",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/historical-data?timeFrame=15m&ticker=string",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"historical-data"
+									],
+									"query": [
+										{
+											"key": "timeFrame",
+											"value": "15m",
+											"description": "Time frame for historical data"
+										},
+										{
+											"key": "ticker",
+											"value": "SLOW",
+											"description": "Token ticker symbol (e.g., SLOW)"
+										}
+									]
+								},
+								"description": "Returns time-series data with total volume, average price, and trade count per time bucket. Bucket sizes: 5m (15m-1h), 15m (6h), 30m (12h-24h), 2h (7d), 12h (30d), daily (90d-1y). Missing time periods are filled with zero values for consistent chart rendering."
+							},
+							"response": [
+								{
+									"name": "Historical price and volume data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/historical-data?timeFrame=15m&ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"historical-data"
+											],
+											"query": [
+												{
+													"key": "timeFrame",
+													"value": "15m",
+													"description": "Time frame for historical data"
+												},
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Token ticker symbol (e.g., SLOW)"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"timeFrame\": \"7d\",\n  \"bucketSize\": \"30m\",\n  \"ticker\": \"SLOW\",\n  \"dataPoints\": [\n    {\n      \"timestamp\": 1702800000000,\n      \"totalVolumeKAS\": 1250.5,\n      \"averagePrice\": 0.00055,\n      \"tradeCount\": 45,\n      \"ticker\": \"SLOW\"\n    },\n    {\n      \"timestamp\": 1702800000000,\n      \"totalVolumeKAS\": 1250.5,\n      \"averagePrice\": 0.00055,\n      \"tradeCount\": 45,\n      \"ticker\": \"SLOW\"\n    }\n  ],\n  \"totalDataPoints\": 168\n}"
+								},
+								{
+									"name": "Bad request - timeFrame and ticker are required",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/historical-data?timeFrame=15m&ticker=string",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"historical-data"
+											],
+											"query": [
+												{
+													"key": "timeFrame",
+													"value": "15m",
+													"description": "Time frame for historical data"
+												},
+												{
+													"key": "ticker",
+													"value": "SLOW",
+													"description": "Token ticker symbol (e.g., SLOW)"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.kaspa.com"
+		}
+	]
+}

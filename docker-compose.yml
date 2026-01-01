@@ -1,0 +1,41 @@
+services:
+  kaspadev-kaspacom-api:
+    build: .
+    deploy:
+      replicas: 3
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://kaspadev-dragonfly:6379
+    volumes:
+      - ./data:/app/data:ro  # Mount data directory as read-only
+
+  kaspadev-envoy:
+    image: envoyproxy/envoy:v1.30.1
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8088:10000"
+      - "9971:9901"
+    depends_on:
+      - kaspadev-kaspacom-api
+
+  kaspadev-dragonfly:
+    image: "docker.dragonflydb.io/dragonflydb/dragonfly"
+    command: dragonfly --maxmemory 1gb --cache_mode=true --proactor_threads=4
+    ulimits:
+      memlock: -1
+    ports:
+      - "6387:6379"
+    volumes:
+      - ./docker-volumes/dragonfly:/data  # Mount to local disk
+
+  kaspadev-sonarqube:
+    image: sonarqube:community
+    profiles: ["development"]
+    ports:
+      - "9007:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - ./docker-volumes/sonarqube:/opt/sonarqube/data  # Mount to local disk
